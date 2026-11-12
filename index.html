@@ -1,0 +1,84 @@
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Circle CBT – Grade 11</title>
+<link href="https://fonts.googleapis.com/css2?family=Lexend:wght@400;600;800&display=swap" rel="stylesheet">
+<style>
+:root{--ink:#12343b;--bg:#f3efe2;--card:#fffdf6;--teal:#1b6b73;--sun:#f2b134;--red:#d64545;--line:#d9d2bd}
+*{box-sizing:border-box}body{margin:0;font:16px/1.55 Lexend,system-ui,sans-serif;background:var(--bg);color:var(--ink)}
+header{background:var(--ink);color:#fff;padding:10px 14px;display:flex;gap:10px;align-items:center;justify-content:space-between;position:sticky;top:0;z-index:5}
+header b{font-weight:800}.pill{background:#ffffff22;border-radius:99px;padding:3px 11px;font-size:14px;white-space:nowrap}.bad{background:var(--red)}
+main{max-width:900px;margin:14px auto;padding:0 12px;display:grid;gap:14px}.card{background:var(--card);border:2px solid var(--ink);border-radius:14px;padding:16px}
+h1{font-weight:800;font-size:26px;margin:0 0 6px;line-height:1.2}input{font:inherit;font-size:16px;width:100%;padding:11px 12px;border:2px solid var(--ink);border-radius:10px;background:#fff;margin:4px 0 10px}
+button{font:inherit;font-weight:600;border:2px solid var(--ink);background:var(--sun);color:var(--ink);border-radius:10px;padding:11px 20px;cursor:pointer;min-height:44px}
+button.g{background:#fff}button:focus-visible,input:focus-visible{outline:3px solid var(--teal);outline-offset:2px}
+#q{display:grid;grid-template-columns:1fr 1fr;gap:16px;align-items:center}@media(max-width:700px){#q{grid-template-columns:1fr}}
+.tag{display:inline-block;background:var(--teal);color:#fff;border-radius:6px;padding:2px 10px;font-size:13px}.emo{font-size:42px;line-height:1.1}
+#fig{background:#e9f3ef;border-radius:12px;padding:8px}#fig svg{width:100%;height:auto;display:block}
+.o{fill:none;stroke:var(--ink);stroke-width:2}.a{fill:#f2b13466;stroke:var(--ink);stroke-width:2}.b{fill:none;stroke:var(--red);stroke-width:5}.l{stroke:var(--teal);stroke-width:2.5}.d{stroke:var(--ink);stroke-dasharray:4}
+.t{font:600 13px Lexend,sans-serif;fill:var(--ink)}.cap{font-size:12px;opacity:.7;margin:4px 0 0}
+#nav{display:grid;grid-template-columns:repeat(5,1fr);gap:8px}#nav button{padding:8px 0;background:#fff}#nav .on{background:var(--teal);color:#fff}#nav .cur{outline:3px solid var(--sun)}
+.row{display:flex;gap:10px;justify-content:space-between;flex-wrap:wrap;margin-top:12px;align-items:center}
+table{border-collapse:collapse;width:100%;font-size:14px;display:block;overflow-x:auto}td,th{border:1px solid var(--line);padding:6px 10px;text-align:left}th{background:#e9f3ef}
+#ov{position:fixed;inset:0;background:#12343bee;color:#fff;display:none;place-items:center;text-align:center;padding:24px;z-index:9}#ov div{max-width:420px}.hide{display:none!important}
+</style></head><body>
+<header><b>Circle CBT · Grade 11</b><span><span class="pill hide" id="tm"></span> <span class="pill hide" id="vi"></span></span></header>
+<main>
+<section class="card" id="start"><h1>Mathematics: Circles</h1>
+<p>10 short-answer questions (HOTS / C6, UTBK-style). Type numbers only. Use π = 22/7 unless told otherwise. Decimals may use a comma or a point. Your questions are different from your classmates’.</p>
+<label>Full name<input id="nm" autocomplete="name"></label><label>Student ID<input id="ns" autocomplete="off"></label><label>Class token (from your teacher)<input id="tk" autocomplete="off" autocapitalize="characters"></label>
+<p id="er" style="color:var(--red);margin:0 0 8px"></p>
+<p><b>Rules:</b> if you leave the exam tab or app 3 times, your exam is submitted automatically. One attempt per Student ID. Turn off notifications before you start.</p>
+<button id="go">Start exam</button>
+<details style="margin-top:16px"><summary><b>Scoring table</b></summary><div id="tbl"></div></details></section>
+<section class="hide" id="ex"><div class="card"><div id="q"></div><div class="row"><button class="g" id="pv">Previous</button><button id="nx">Next</button></div></div>
+<div class="card" style="margin-top:14px"><div id="nav"></div><div class="row"><span id="cnt"></span><button id="fin">Submit</button></div></div></section>
+<section class="card hide" id="end"></section></main>
+<div id="ov"><div><h2 id="ot"></h2><p id="om"></p><button id="ob">Back to exam</button></div></div>
+<script>
+const SCRIPT_URL="https://script.google.com/macros/s/AKfycbyuKMWx1bjMHulwkSa4vWwkR6-GjrLdEgLWgJrDQdcSC2leYU0F1cb2ENsU3jXhhByu/exec",MAXV=3,$=i=>document.getElementById(i);
+function fig(f){const t=f[0];let s="";
+if(t=="s"){const a=f[1],e=a*Math.PI/180,X=120+65*Math.cos(e),Y=85-65*Math.sin(e),F=a>180?1:0;
+s=`<circle cx="120" cy="85" r="65" class="o"/><path d="M120 85H185A65 65 0 ${F} 0 ${X} ${Y}Z" class="a"/><path d="M185 85A65 65 0 ${F} 0 ${X} ${Y}" class="b"/><text x="${120+30*Math.cos(e/2)}" y="${88-30*Math.sin(e/2)}" class="t" text-anchor="middle">θ</text><text x="108" y="100" class="t">O</text>`}
+else if(t=="i"||t=="c"){const A=[70,130],B=[170,130],C=[100,60],d=(p,q)=>Math.hypot(p[0]-q[0],p[1]-q[1]),a=d(B,C),b=d(A,C),c=d(A,B),p=a+b+c;let x,y,r;
+if(t=="i"){x=(a*A[0]+b*B[0]+c*C[0])/p;y=(a*A[1]+b*B[1]+c*C[1])/p;r=7000/p}else{x=120;y=110;r=Math.hypot(50,20)}
+s=`<polygon points="70,130 170,130 100,60" class="a"/><circle cx="${x}" cy="${y}" r="${r}" class="o" style="stroke:var(--teal);stroke-width:3"/><circle cx="${x}" cy="${y}" r="3"/><text x="62" y="146" class="t">A</text><text x="170" y="146" class="t">B</text><text x="96" y="52" class="t">C</text>`}
+else if(t=="t"){const r=40,d=130,th=Math.acos(r/d),X=70+r*Math.cos(th),Y=85-r*Math.sin(th);
+s=`<circle cx="70" cy="85" r="40" class="o"/><line x1="70" y1="85" x2="200" y2="85" class="d"/><line x1="70" y1="85" x2="${X}" y2="${Y}" class="d"/><line x1="${X}" y1="${Y}" x2="200" y2="85" class="l"/><circle cx="${X}" cy="${Y}" r="4"/><text x="58" y="104" class="t">O</text><text x="204" y="90" class="t">P</text><text x="${X-4}" y="${Y-8}" class="t">T</text>`}
+else{const k=t=="o"?1:-1,c1=[55,85],c2=[185,85],r1=35,r2=25,sn=(r1-k*r2)/130,cs=Math.sqrt(1-sn*sn);
+s=`<circle cx="55" cy="85" r="35" class="a"/><circle cx="185" cy="85" r="25" class="a"/>`;
+for(const g of[1,-1]){const n=[sn,g*cs];s+=`<line x1="${c1[0]+r1*n[0]}" y1="${c1[1]+r1*n[1]}" x2="${c2[0]+k*r2*n[0]}" y2="${c2[1]+k*r2*n[1]}" class="l"/>`}
+s+=`<line x1="55" y1="85" x2="185" y2="85" class="d"/><text x="48" y="89" class="t">O₁</text><text x="178" y="89" class="t">O₂</text>`}
+return `<svg viewBox="0 0 240 170" role="img" aria-label="Illustration">${s}</svg><p class="cap">Illustration (not to scale)</p>`}
+const shuf=n=>{const a=[...Array(n).keys()];for(let i=n-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[a[i],a[j]]=[a[j],a[i]]}return a};
+let S={q:[],ans:[],ord:[],i:0,v:0,end:0,t0:0,done:false,info:null},lock=0;
+const sv=()=>{try{localStorage.setItem("cbtC",JSON.stringify(S))}catch(e){}};
+function show(){const id=S.ord[S.i],x=S.q[id];
+$("q").innerHTML=`<div><span class="tag">${x.tp}</span> <span style="opacity:.6">Question ${S.i+1} of ${S.q.length}</span><div class="emo">${x.em}</div><p>${x.t}</p><input id="an" inputmode="decimal" autocomplete="off" placeholder="Your answer (number)" value="${S.ans[id]||""}"></div><div id="fig">${fig(x.f)}</div>`;
+$("an").oninput=e=>{S.ans[id]=e.target.value;sv();nav()};nav()}
+function nav(){$("nav").innerHTML=S.ord.map((id,i)=>`<button class="${S.ans[id]?"on":""} ${i==S.i?"cur":""}" data-i="${i}">${i+1}</button>`).join("");
+$("cnt").textContent=`Answered ${S.ans.filter(Boolean).length} of ${S.q.length}`;$("vi").textContent=`Violations ${S.v}/${MAXV}`;$("vi").classList.toggle("bad",S.v>0)}
+$("nav").onclick=e=>{const i=e.target.dataset.i;if(i!=null){S.i=+i;show();sv()}};
+$("pv").onclick=()=>{if(S.i>0){S.i--;show();sv()}};$("nx").onclick=()=>{if(S.i<S.q.length-1){S.i++;show();sv()}};
+function begin(){$("start").classList.add("hide");$("ex").classList.remove("hide");$("tm").classList.remove("hide");$("vi").classList.remove("hide");try{document.documentElement.requestFullscreen()}catch(e){}show();tick()}
+async function kirim(p){try{const r=await fetch(SCRIPT_URL,{method:"POST",headers:{"Content-Type":"text/plain"},body:JSON.stringify(p)});return await r.json()}catch(e){return null}}
+$("go").onclick=async()=>{const n=$("nm").value.trim(),s=$("ns").value.trim(),t=$("tk").value.trim();if(!n||!s||!t)return alert("Please fill in your name, Student ID and class token.");
+$("go").disabled=true;$("er").textContent="Checking token…";const r=await kirim({aksi:"mulai",nama:n,nis:s,token:t});$("go").disabled=false;
+if(!r||!r.ok){$("er").textContent=r?r.pesan:"Cannot reach the server. Check your connection and SCRIPT_URL.";return}
+$("er").textContent="";S.info={nama:n,nis:s,token:t,kelas:r.kelas};S.q=r.soal;S.ans=Array(r.soal.length).fill("");S.ord=shuf(r.soal.length);S.t0=Date.now();S.end=S.t0+r.menit*6e4;sv();begin()};
+function tick(){if(S.done)return;const r=Math.max(0,S.end-Date.now()),m=Math.floor(r/6e4),s=Math.floor(r/1e3)%60;$("tm").textContent=`⏱ ${m}:${String(s).padStart(2,"0")}`;if(r<=0)return fin("Time up");setTimeout(tick,500)}
+function viol(why){if(S.done||!S.info||Date.now()-lock<1500)return;lock=Date.now();S.v++;sv();nav();
+if(S.v>=MAXV)return fin("Auto-submit (3 app switches)");
+$("ot").textContent=`Warning ${S.v}/${MAXV}`;$("om").textContent=`${why}. At ${MAXV} warnings your exam is submitted automatically.`;$("ov").style.display="grid"}
+$("ob").onclick=()=>{$("ov").style.display="none";try{document.documentElement.requestFullscreen()}catch(e){}};
+document.addEventListener("visibilitychange",()=>{if(document.hidden)viol("You left the exam page")});
+window.addEventListener("blur",()=>{if(!S.done&&S.info)viol("The exam window lost focus")});
+$("fin").onclick=()=>{if(confirm("Submit now? You cannot change your answers afterwards."))fin("Finished")};
+async function fin(status){if(S.done)return;S.done=true;$("ov").style.display="none";$("ex").classList.add("hide");$("tm").classList.add("hide");
+const P={aksi:"kumpul",...S.info,pelanggaran:S.v,status,durasi:Math.round((Date.now()-S.t0)/6e3)/10,jawaban:S.ans};
+$("end").classList.remove("hide");$("end").innerHTML="<h1>Sending your answers…</h1>";
+let R=await kirim(P);const draw=()=>{const ok=R&&R.ok;$("end").innerHTML=`<h1>${ok?"Answers submitted ✅":"Submission failed ⚠️"}</h1><p>${S.info.nama} · ${S.info.kelas} · ${status}</p>${ok&&R.nilai!=null?`<p style="font-size:40px;font-weight:800;margin:6px 0">${R.nilai}</p><p>${R.benar} of ${S.q.length} correct</p>`:""}${ok?"":`<p>${R?R.pesan:"Check your connection; your answers are still saved on this device."}</p><button id="rt">Try again</button>`}`;
+if(!ok)$("rt").onclick=async()=>{R=await kirim(P);draw()}};draw();if(R&&R.ok)try{localStorage.removeItem("cbtC")}catch(e){}}
+(()=>{const T=[["Arc length","Design a curved structure / estimate cost from arc length and central angle"],["Sector area","Evaluate sector area and cost; recover the central angle"],["Angle : arc : area ratio","Use proportions between angle, arc and sector area to solve a design problem"],["Incircle of a triangle","Design the largest circle touching all three sides"],["Circumcircle of a triangle","Locate a point equidistant from three vertices"],["Tangent to one circle","Evaluate tangent length / kite area from an external point"],["External common tangent","Design a belt over two circles (same side)"],["Internal common tangent","Design a crossed belt over two circles"]];
+let h=`<table><tr><th>Topic</th><th>C6 indicator</th><th>Pool</th><th>Per student</th><th>Points</th></tr>`;T.forEach((t,k)=>h+=`<tr><td>${t[0]}</td><td>${t[1]}</td><td>2 question types</td><td>1–2</td><td>10 each</td></tr>`);
+h+=`<tr><th colspan="3">Total</th><th>10</th><th>100</th></tr></table><p>Each student gets 10 questions: one from every topic plus 2 extra. Correct = 10 points, wrong or blank = 0.</p><table><tr><th>Score</th><th>Level</th></tr><tr><td>90–100</td><td>Excellent</td></tr><tr><td>75–89</td><td>Good</td></tr><tr><td>60–74</td><td>Fair</td></tr><tr><td>&lt;60</td><td>Needs support</td></tr></table>`;$("tbl").innerHTML=h})();
+try{const r=JSON.parse(localStorage.getItem("cbtC")||"null");if(r&&r.info&&!r.done&&r.q.length){S=r;viol("The page was reloaded");if(S.v<MAXV)begin()}}catch(e){}
+</script></body></html>
